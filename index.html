@@ -1,0 +1,123 @@
+<html>
+<head>
+<style>
+html, body {
+    height: 100%;
+    width: 100%;
+	margin: 0px;
+	font-size: 24px;
+	font-family: Verdana;
+}
+div {
+    width: 50%;
+    height: 50%;
+    float: left;
+	text-align:center;
+}
+p {
+padding:10px;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+.figure {
+	font-weight: bold;
+	font-size: 92px;
+	margin-top: 46px;
+	margin-bottom: 46px;
+}
+#id01 {
+    background: #153243;
+	color: white;
+}
+#id02 {
+    background: #F4F9E9;
+}
+#id03 {
+    background: #EEF0EB;
+}
+#id04 {
+    background: #284B63;
+	color: white;
+}
+</style>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+var url = "https://opendata.camden.gov.uk/resource/2eiu-s2cw.json?registered_in_last_7_working_days=Yes&%24group=registered_in_last_7_working_days&%24select=registered_in_last_7_working_days%2Ccount%28application_number%29";
+xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        myFunction(xmlhttp.responseText);
+    }
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+function myFunction(response) {
+    var arr = JSON.parse(response);
+	var ind = arr[0].count_application_number;
+    var out = "<p class='figure'>"+ind+"</p><p> new planning apps in the last 7 days</p>";
+	document.getElementById("id01").innerHTML = out;
+}
+</script>
+
+<script>
+var xmlhttp2 = new XMLHttpRequest();
+var url2 = "https://opendata.camden.gov.uk/resource/4k7m-4gkk.json?%24group=contravention_in_last_7_days&%24select=contravention_in_last_7_days%2Ccount%28socrata_id%29&contravention_in_last_7_days=Yes";
+xmlhttp2.onreadystatechange=function() {
+    if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+        myFunction2(xmlhttp2.responseText);
+    }
+}
+xmlhttp2.open("GET", url2, true);
+xmlhttp2.send();
+function myFunction2(response) {
+    var arr2 = JSON.parse(response);
+	var ind2 = arr2[0].count_socrata_id;
+    var out2 = "<p class='figure'>"+ind2+"</p><p>parking tickets issued in the last 7 days</p>";
+    document.getElementById("id02").innerHTML = out2;
+}
+</script>
+
+<script>
+var xmlhttp3 = new XMLHttpRequest();
+var url3 = "https://opendata.camden.gov.uk/resource/x43g-c2rf.json?%24group=status&%24select=status%2Ccount%28licence_number%29";
+xmlhttp3.onreadystatechange=function() {
+    if (xmlhttp3.readyState == 4 && xmlhttp3.status == 200) {
+        myFunction3(xmlhttp3.responseText);
+    }
+}
+xmlhttp3.open("GET", url3, true);
+xmlhttp3.send();
+function myFunction3(response) {
+    var arr3 = JSON.parse(response);
+	var ind3 = arr3[0].count_licence_number;
+    var out3 = "<p class='figure'>"+ind3+"</p><p>valid HMO licences in place</p>";
+    document.getElementById("id03").innerHTML = out3;
+}
+</script>
+
+<script>
+var xmlhttp4 = new XMLHttpRequest();
+var url4 = "https://opendata.camden.gov.uk/resource/hb3v-f3s2.json?works_status=IN%20PROGRESS&$group=works_status&$select=works_status,count(local_authority_reference)";
+xmlhttp4.onreadystatechange=function() {
+    if (xmlhttp4.readyState == 4 && xmlhttp4.status == 200) {
+        myFunction4(xmlhttp4.responseText);
+    }
+}
+xmlhttp4.open("GET", url4, true);
+xmlhttp4.send();
+function myFunction4(response) {
+    var arr4 = JSON.parse(response);
+	var ind4 = arr4[0].count_local_authority_reference;
+    var out4 = "<p class='figure'>"+ind4+"</p><p>street works currently in progress</p>";
+    document.getElementById("id04").innerHTML = out4;
+}
+</script>
+
+</head>
+<body>
+	<div id="id01"></div>
+	<div id="id02"></div>
+	<div id="id03"></div>
+	<div id="id04"></div>
+</body>
+</html>	
